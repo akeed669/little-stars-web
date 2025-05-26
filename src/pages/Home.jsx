@@ -1,7 +1,9 @@
+import playing from '../assets/playing.jpg';
+
 function Home() {
     return (
         <div>
-            <img src="/img/playing.jpg" alt="Kids Playing" className="w-full h-64 object-cover mb-4 rounded" />
+            <img src={playing} alt="Kids Playing" className="w-full h-64 object-cover mb-4 rounded" />
             <h2 className="text-2xl text-center mb-4 text-orange-500">Nurturing Young Stars in Ladybrand!</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
                 <div className="p-4 bg-orange-100 rounded">
