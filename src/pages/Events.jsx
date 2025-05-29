@@ -1,25 +1,33 @@
 import { useState, useEffect } from 'react';
-import { fetchEvents } from '../services/airtable';
+import { fetchEvents, fetchGallery, fetchArticle } from '../services/airtable';
 
 function Events() {
     const [events, setEvents] = useState([]);
+    const [gallery, setGallery] = useState([]);
+    const [article, setArticle] = useState({ title: '', content: '' });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const loadEvents = async () => {
+        const loadData = async () => {
             try {
-                const data = await fetchEvents();
-                setEvents(data);
+                const [eventsData, galleryData, articleData] = await Promise.all([
+                    fetchEvents(),
+                    fetchGallery(),
+                    fetchArticle()
+                ]);
+                setEvents(eventsData);
+                setGallery(galleryData);
+                setArticle(articleData);
             } catch (err) {
-                setError('Failed to load events');
+                setError('Failed to load data');
                 console.error(err);
             } finally {
                 setLoading(false);
             }
         };
 
-        loadEvents();
+        loadData();
     }, []);
 
     const formatDate = (dateString) => {
@@ -35,7 +43,7 @@ function Events() {
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-64">
-                <div className="text-orange-500">Loading events...</div>
+                <div className="text-orange-500">Loading...</div>
             </div>
         );
     }
@@ -50,9 +58,38 @@ function Events() {
 
     return (
         <div className="container mx-auto px-4 py-8">
+
+            {/* Newspaper Article */}
+            {article.title && article.content && (
+                <div className="bg-white rounded-lg shadow-md p-6 mb-8 border border-gray-200">
+                    <h3 className="text-2xl font-semibold mb-4 text-orange-500">{article.title}</h3>
+                    <p className="text-gray-700 whitespace-pre-wrap">{article.content}</p>
+                </div>
+            )}
+
+            {/* Gallery */}
+            {gallery.length > 0 && (
+                <div className="mb-8">
+                    <h3 className="text-2xl font-semibold mb-4 text-orange-500">Event Gallery</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {gallery.map((item, index) => (
+                            <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <img
+                                    src={item.imageUrl}
+                                    alt={item.caption}
+                                    className="w-full h-48 object-cover"
+                                />
+                                <p className="p-4 text-gray-600 text-center">{item.caption}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
             <h2 className="text-3xl font-bold mb-6 text-orange-500">Upcoming Events</h2>
             <p className="text-gray-600 mb-8">Join us for these exciting activities and special occasions.</p>
 
+            {/* Events Table */}
             {events.length > 0 ? (
                 <div className="bg-white rounded-lg shadow-md overflow-hidden">
                     <div className="overflow-x-auto">
@@ -67,15 +104,9 @@ function Events() {
                             <tbody className="divide-y divide-gray-200">
                                 {events.map((event, index) => (
                                     <tr key={index} className="hover:bg-gray-50">
-                                        <td className="px-6 py-4 font-medium text-gray-900">
-                                            {event.title}
-                                        </td>
-                                        <td className="px-6 py-4 text-gray-600">
-                                            {formatDate(event.date)}
-                                        </td>
-                                        <td className="px-6 py-4 text-gray-600">
-                                            {event.description}
-                                        </td>
+                                        <td className="px-6 py-4 font-medium text-gray-900">{event.title}</td>
+                                        <td className="px-6 py-4 text-gray-600">{formatDate(event.date)}</td>
+                                        <td className="px-6 py-4 text-gray-600">{event.description}</td>
                                     </tr>
                                 ))}
                             </tbody>

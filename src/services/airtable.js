@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const BASE_ID = 'appvjid8h3mhngkaw'
-const API_KEY = 'patbqAp1PPwa1RxMK.3cb307e251a83aea32d3db6bbe88495f37052194515ad3cc2bb8c060e52e706c'
+const BASE_ID = 'appvjid8h3mhngkaw';
+const API_KEY = 'patbqAp1PPwa1RxMK.3cb307e251a83aea32d3db6bbe88495f37052194515ad3cc2bb8c060e52e706c';
 const BASE_URL = `https://api.airtable.com/v0/${BASE_ID}`;
 
 const airtableClient = axios.create({
@@ -26,12 +26,9 @@ export async function fetchAnnouncements() {
         for (const record of response.data.records) {
             const fields = record.fields;
 
-            // If this is the Newsletter and it's valid, extract the attachment
             if (fields.Name === 'Newsletter' && fields.Valid) {
                 pdf = fields.Attachments?.[0]?.url || '';
-            }
-            // Otherwise, treat it as a regular announcement
-            else {
+            } else {
                 if (fields.Name?.trim()) {
                     text.push({ item: fields.Name.trim() });
                 }
@@ -45,13 +42,11 @@ export async function fetchAnnouncements() {
     }
 }
 
-
-
 export async function fetchEvents() {
     try {
         const response = await airtableClient.get('/Events', {
             params: {
-                // filterByFormula: '{Active} = TRUE()',
+                filterByFormula: '{Active} = TRUE()',
                 sort: [{ field: 'Date', direction: 'asc' }]
             }
         });
@@ -64,5 +59,44 @@ export async function fetchEvents() {
     } catch (error) {
         console.error('Error fetching events:', error);
         return [];
+    }
+}
+
+export async function fetchGallery() {
+    try {
+        const response = await airtableClient.get('/Gallery', {
+            params: {
+                filterByFormula: '{Active} = TRUE()',
+                sort: [{ field: 'Caption', direction: 'asc' }]
+            }
+        });
+
+        return response.data.records?.map(record => ({
+            imageUrl: record.fields.Image?.[0]?.url || '',
+            caption: record.fields.Caption || ''
+        })) || [];
+    } catch (error) {
+        console.error('Error fetching gallery:', error);
+        return [];
+    }
+}
+
+export async function fetchArticle() {
+    try {
+        const response = await airtableClient.get('/Article', {
+            params: {
+                filterByFormula: '{Active} = TRUE()',
+                maxRecords: 1
+            }
+        });
+
+        const record = response.data.records?.[0]?.fields || {};
+        return {
+            title: record.Title || '',
+            content: record.Content || ''
+        };
+    } catch (error) {
+        console.error('Error fetching article:', error);
+        return { title: '', content: '' };
     }
 }
