@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
+
 import { fetchAnnouncements } from '../services/airtable';
+import Newsletter from './Newsletter';
 
 function Announcements() {
-    const [announcements, setAnnouncements] = useState({ pdf: '', text: [] });
+    const [announcements, setAnnouncements] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -22,6 +24,16 @@ function Announcements() {
         loadAnnouncements();
     }, []);
 
+    const formatDate = (dateString) => {
+        if (!dateString) return 'TBD';
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-GB', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+    };
+
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-64">
@@ -39,48 +51,49 @@ function Announcements() {
     }
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <h2 className="text-3xl font-bold mb-6 text-orange-500">Announcements</h2>
-            <p className="text-gray-600 mb-8">Stay updated with our latest news and newsletters.</p>
+        <Fragment>
+            <div className="container mx-auto px-4 py-8">
+                <h2 className="text-3xl font-bold mb-6 text-orange-500">Announcements</h2>
+                {/* <p className="text-gray-600 mb-8">Stay updated with our latest news.</p>             */}
 
-            {/* Newsletter Section */}
-            <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-                <h3 className="text-xl font-semibold mb-4 text-gray-800">Latest Newsletter</h3>
-                {announcements.pdf ? (
-                    <a
-                        href={announcements.pdf}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center bg-orange-500 text-white py-3 px-6 rounded-lg hover:bg-orange-600 transition-colors"
-                    >
-                        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                        Download Newsletter (PDF)
-                    </a>
+                {/* Announcements Table */}
+                {announcements.length > 0 ? (
+                    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div className="overflow-x-auto">
+                            <table className="w-full">
+                                <thead className="bg-orange-500 text-white">
+                                    <tr>
+                                        <th className="px-6 py-4 text-left font-semibold">Announcement</th>
+                                        <th className="px-6 py-4 text-left font-semibold">Date</th>
+                                        <th className="px-6 py-4 text-left font-semibold">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-200">
+                                    {announcements.map((announcement, index) => (
+                                        <tr key={index} className="hover:bg-gray-50">
+                                            <td className="px-6 py-4 font-medium text-gray-900">{announcement.title}</td>
+                                            <td className="px-6 py-4 text-gray-600">{formatDate(announcement.date)}</td>
+                                            <td className="px-6 py-4 text-gray-600">{announcement.description}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 ) : (
-                    <p className="text-gray-500 italic">No newsletter available at the moment.</p>
+                    <div className="bg-white rounded-lg shadow-md p-8 text-center">
+                        <p className="text-gray-500 italic">No announcements at this time.</p>
+                    </div>
                 )}
+
             </div>
 
-            {/* Announcements List */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-                <h3 className="text-xl font-semibold mb-4 text-gray-800">Current Announcements</h3>
-                {announcements.text.length > 0 ? (
-                    <ul className="space-y-3">
-                        {announcements.text.map((item, index) => (
-                            <li key={index} className="flex items-start">
-                                <span className="text-orange-500 mr-3 mt-1">•</span>
-                                <span className="text-gray-700">{item.item}</span>
-                            </li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p className="text-gray-500 italic">No announcements at this time.</p>
-                )}
-            </div>
-        </div>
+            <Newsletter className="bg-white rounded-lg shadow-md p-6 mb-8" />
+
+        </Fragment>
     );
 }
 
 export default Announcements;
+
+{/* Newsletter */ }

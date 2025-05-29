@@ -16,29 +16,46 @@ export async function fetchAnnouncements() {
     try {
         const response = await airtableClient.get('/Announcements', {
             params: {
+                filterByFormula: '{Active} = TRUE()',
+                sort: [{ field: 'Title', direction: 'asc' }]
+            }
+        });
+
+        const text = response.data.records?.map(record => ({
+            title: record.fields.Title?.trim() || '',
+            date: record.fields.Date || '',
+            description: record.fields.Description || ''
+        })) || [];
+
+        return text;
+    } catch (error) {
+        console.error('Error fetching announcements:', error);
+        return [];
+    }
+}
+
+export async function fetchNewsletter() {
+    try {
+        const response = await airtableClient.get('/Newsletter', {
+            params: {
                 sort: [{ field: 'Name', direction: 'asc' }]
             }
         });
 
         let pdf = '';
-        const text = [];
 
         for (const record of response.data.records) {
             const fields = record.fields;
 
             if (fields.Name === 'Newsletter' && fields.Valid) {
                 pdf = fields.Attachments?.[0]?.url || '';
-            } else {
-                if (fields.Name?.trim()) {
-                    text.push({ item: fields.Name.trim() });
-                }
             }
         }
 
-        return { pdf, text };
+        return { pdf };
     } catch (error) {
-        console.error('Error fetching announcements:', error);
-        return { pdf: '', text: [] };
+        console.error('Error fetching newsletter:', error);
+        return { pdf: '' };
     }
 }
 
