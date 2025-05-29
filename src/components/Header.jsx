@@ -4,7 +4,7 @@ import logo from '../assets/logo.jpeg';
 
 function Header() {
     return (
-        <header className="text-center py-4 bg-orange-500 text-white">
+        <header className="text-center py-4 bg-teal-500 text-white">
             <img src={logo} alt="Little Stars Logo" className="mx-auto h-24" />
             <h1 className="text-2xl font-bold my-2">Little Stars Preschool and Primary</h1>
             <nav className="flex justify-center space-x-4">

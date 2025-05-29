@@ -43,7 +43,7 @@ function Events() {
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-64">
-                <div className="text-orange-500">Loading...</div>
+                <div className="text-teal-500">Loading...</div>
             </div>
         );
     }
@@ -62,7 +62,7 @@ function Events() {
             {/* Newspaper Article */}
             {article.title && article.content && (
                 <div className="bg-white rounded-lg shadow-md p-6 mb-8 border border-gray-200">
-                    <h3 className="text-2xl font-semibold mb-4 text-orange-500">{article.title}</h3>
+                    <h3 className="text-2xl font-semibold mb-4 text-teal-500">{article.title}</h3>
                     <p className="text-gray-700 whitespace-pre-wrap">{article.content}</p>
                 </div>
             )}
@@ -70,7 +70,7 @@ function Events() {
             {/* Gallery */}
             {gallery.length > 0 && (
                 <div className="mb-8">
-                    <h3 className="text-2xl font-semibold mb-4 text-orange-500">Event Gallery</h3>
+                    <h3 className="text-2xl font-semibold mb-4 text-teal-500">Event Gallery</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         {gallery.map((item, index) => (
                             <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">

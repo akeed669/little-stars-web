@@ -37,7 +37,7 @@ function Announcements() {
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-64">
-                <div className="text-orange-500">Loading announcements...</div>
+                <div className="text-teal-500">Loading announcements...</div>
             </div>
         );
     }
@@ -53,7 +53,7 @@ function Announcements() {
     return (
         <Fragment>
             <div className="container mx-auto px-4 py-8">
-                <h2 className="text-3xl font-bold mb-6 text-orange-500">Announcements</h2>
+                <h2 className="text-3xl font-bold mb-6 text-teal-500">Announcements</h2>
                 {/* <p className="text-gray-600 mb-8">Stay updated with our latest news.</p>             */}
 
                 {/* Announcements Table */}
@@ -61,7 +61,7 @@ function Announcements() {
                     <div className="bg-white rounded-lg shadow-md overflow-hidden">
                         <div className="overflow-x-auto">
                             <table className="w-full">
-                                <thead className="bg-orange-500 text-white">
+                                <thead className="bg-teal-500 text-white">
                                     <tr>
                                         <th className="px-6 py-4 text-left font-semibold">Announcement</th>
                                         <th className="px-6 py-4 text-left font-semibold">Date</th>
