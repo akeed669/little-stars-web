@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]  # or new_line if you prefer
+    branches: [ new_features ]  # or new_line if you prefer
 
 jobs:
   deploy:
