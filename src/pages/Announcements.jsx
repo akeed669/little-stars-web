@@ -36,7 +36,7 @@ function Announcements() {
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-64 text-xl text-teal-500 font-[Patrick_Hand]">
-                🛎️ Loading announcements...
+                Loading announcements...
             </div>
         );
     }
@@ -52,7 +52,7 @@ function Announcements() {
     return (
         <Fragment>
             <div className="container mx-auto px-4 py-8 font-[Patrick_Hand]">
-                <h2 className="text-3xl text-center text-pink-500 mb-6">📢 School Announcements</h2>
+                <h2 className="text-3xl text-center text-pink-500 mb-6">School Announcements</h2>
 
                 {announcements.length > 0 ? (
                     <div className="bg-white rounded-3xl shadow-lg overflow-hidden ring-1 ring-teal-100">
@@ -60,9 +60,9 @@ function Announcements() {
                             <table className="w-full text-left table-fixed">
                                 <thead className="bg-teal-400 text-white text-lg">
                                     <tr>
-                                        <th className="px-6 py-4">📝 Title</th>
-                                        <th className="px-6 py-4">📅 Date</th>
-                                        <th className="px-6 py-4">🗒️ Details</th>
+                                        <th className="px-6 py-4">Title</th>
+                                        <th className="px-6 py-4">Date</th>
+                                        <th className="px-6 py-4">Details</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-teal-100 bg-yellow-50">

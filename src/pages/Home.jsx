@@ -10,24 +10,24 @@ function Home() {
             />
 
             <h2 className="text-3xl text-center text-pink-500 mb-8">
-                🌟 Nurturing Young Stars in Ladybrand! 🌟
+                Nurturing Young Stars in Ladybrand!
             </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-12">
                 <div className="bg-pink-100 p-6 rounded-2xl shadow-md text-center hover:scale-105 transition">
-                    <h3 className="text-lg text-pink-600 mb-2">🎨 Play-Based Learning</h3>
+                    <h3 className="text-lg text-pink-600 mb-2">Play-Based Learning</h3>
                     <p className="text-sm text-gray-700">Ages 2–6, creative curriculum designed for fun and growth.</p>
                 </div>
                 <div className="bg-blue-100 p-6 rounded-2xl shadow-md text-center hover:scale-105 transition">
-                    <h3 className="text-lg text-blue-600 mb-2">🏡 Safe Campus</h3>
+                    <h3 className="text-lg text-blue-600 mb-2">Safe Campus</h3>
                     <p className="text-sm text-gray-700">Secure environment with engaging outdoor spaces.</p>
                 </div>
                 <div className="bg-green-100 p-6 rounded-2xl shadow-md text-center hover:scale-105 transition">
-                    <h3 className="text-lg text-green-600 mb-2">🕓 Aftercare</h3>
+                    <h3 className="text-lg text-green-600 mb-2">Aftercare</h3>
                     <p className="text-sm text-gray-700">Flexible hours to support working parents.</p>
                 </div>
                 <div className="bg-yellow-200 p-6 rounded-2xl shadow-md text-center hover:scale-105 transition">
-                    <h3 className="text-lg text-yellow-700 mb-2">🎉 Holiday Programs</h3>
+                    <h3 className="text-lg text-yellow-700 mb-2">Holiday Programs</h3>
                     <p className="text-sm text-gray-700">Fun and educational year-round activities.</p>
                 </div>
             </div>
@@ -43,7 +43,7 @@ function Home() {
                     href="mailto:info@littlestarspreschool.co.za"
                     className="inline-block mt-4 bg-pink-500 text-white py-2 px-6 rounded-full shadow hover:bg-pink-600 transition"
                 >
-                    💌 Get in Touch
+                    Get in Touch
                 </a>
             </div>
         </div>

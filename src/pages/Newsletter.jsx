@@ -44,7 +44,7 @@ function Newsletter() {
         <div className="container mx-auto px-4 py-12 space-y-12">
             {/* Current Newsletter */}
             <div className="bg-teal-50 rounded-3xl shadow-xl ring-1 ring-teal-100 p-8 max-w-2xl mx-auto font-[Patrick_Hand]">
-                <h3 className="text-3xl text-center text-teal-600 mb-4">📰 Current Newsletter</h3>
+                <h3 className="text-3xl text-center text-teal-600 mb-4">Current Newsletter</h3>
                 <p className="text-center text-gray-700 mb-6 text-lg">
                     Stay updated with the latest from school!
                 </p>
@@ -73,7 +73,7 @@ function Newsletter() {
             {/* Past Newsletters */}
             {past.length > 0 && (
                 <div className="max-w-3xl mx-auto font-[Patrick_Hand]">
-                    <h4 className="text-2xl text-teal-600 mb-6 text-center">📚 Past Newsletters</h4>
+                    <h4 className="text-2xl text-teal-600 mb-6 text-center">Past Newsletters</h4>
                     <ul className="space-y-3">
                         {past.map((item, idx) => (
                             <li key={idx} className="bg-white rounded-xl shadow p-4 flex items-center justify-between hover:bg-teal-50 transition">
