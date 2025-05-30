@@ -2,7 +2,14 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ new_features ]  # or new_line if you prefer
+    branches: [ new_features, feature/updated_ui, main ] 
+
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to build from"
+        required: true
+        default: "main"
 
 jobs:
   deploy:
