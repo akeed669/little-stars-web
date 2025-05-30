@@ -38,26 +38,33 @@ export async function fetchNewsletter() {
     try {
         const response = await airtableClient.get('/Newsletter', {
             params: {
-                sort: [{ field: 'Name', direction: 'asc' }]
+                sort: [{ field: 'Name', direction: 'desc' }] // most recent first
             }
         });
 
-        let pdf = '';
+        let current = null;
+        const past = [];
 
         for (const record of response.data.records) {
-            const fields = record.fields;
+            const { Name, Attachments, Valid, Current } = record.fields;
+            const pdfUrl = Attachments?.[0]?.url || '';
 
-            if (fields.Name === 'Newsletter' && fields.Valid) {
-                pdf = fields.Attachments?.[0]?.url || '';
+            if (Valid && pdfUrl) {
+                if (Current) {
+                    current = { name: Name, pdf: pdfUrl };
+                } else {
+                    past.push({ name: Name, pdf: pdfUrl });
+                }
             }
         }
 
-        return { pdf };
+        return { current, past };
     } catch (error) {
-        console.error('Error fetching newsletter:', error);
-        return { pdf: '' };
+        console.error('Error fetching newsletters:', error);
+        return { current: null, past: [] };
     }
 }
+
 
 export async function fetchEvents() {
     try {
