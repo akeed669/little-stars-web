@@ -7,10 +7,10 @@ function Footer() {
                     51A Botha Street, Ladybrand, 9745
                     <span className="mx-2">|</span>
                     <span className="inline-block align-middle mr-1">📞</span>
-                    061 708 4155
+                    073 237 9504
                     <span className="mx-2">|</span>
                     <span className="inline-block align-middle mr-1">✉️</span>
-                    info@littlestarspreschool.co.za
+                    littlestarspp7@gmail.com
                 </p>
                 <p className="text-xs text-gray-400">© 2025 Little Stars Preschool and Primary</p>
             </div>

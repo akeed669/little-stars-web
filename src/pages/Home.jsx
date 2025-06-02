@@ -36,8 +36,8 @@ function Home() {
                 <h3 className="text-xl text-teal-500 mb-3">📞 Contact Us</h3>
                 <p className="text-sm text-gray-800">
                     51A Botha Street, Ladybrand, 9745<br />
-                    Phone: <a href="tel:0617084155" className="underline text-teal-600">061 708 4155</a><br />
-                    Email: <a href="mailto:info@littlestarspreschool.co.za" className="underline text-teal-600">info@littlestarspreschool.co.za</a>
+                    Phone: <a href="tel:0617084155" className="underline text-teal-600">073 237 9504</a><br />
+                    Email: <a href="mailto:info@littlestarspreschool.co.za" className="underline text-teal-600">littlestarspp7@gmail.com</a>
                 </p>
                 <a
                     href="mailto:info@littlestarspreschool.co.za"
