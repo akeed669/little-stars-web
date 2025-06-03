@@ -82,17 +82,21 @@ function Events() {
                             />
                             <button
                                 onClick={prevImage}
-                                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-yellow-400 text-white text-2xl p-3 rounded-full hover:bg-yellow-500 shadow-lg"
+                                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-yellow-400 text-white w-10 h-10 flex items-center justify-center rounded-full hover:bg-teal-600 focus:outline-none"
                                 aria-label="Previous image"
                             >
-                                ⬅
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                </svg>
                             </button>
                             <button
                                 onClick={nextImage}
-                                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-yellow-400 text-white text-2xl p-3 rounded-full hover:bg-yellow-500 shadow-lg"
+                                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-yellow-400 text-white w-10 h-10 flex items-center justify-center rounded-full hover:bg-teal-600 focus:outline-none"
                                 aria-label="Next image"
                             >
-                                ➡
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
                             </button>
                         </div>
                         <p className="p-4 text-purple-600 text-center font-semibold text-lg bg-yellow-50">

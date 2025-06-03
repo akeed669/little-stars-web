@@ -1,4 +1,4 @@
-import playing from '../assets/playing.jpg';
+import playing from '../assets/littlestars.jpeg';
 
 function Home() {
     return (
@@ -6,7 +6,7 @@ function Home() {
             <img
                 src={playing}
                 alt="Kids Playing"
-                className="w-full h-64 object-cover mb-6 rounded-3xl shadow-lg"
+                className="w-full h-auto object-cover mb-6 rounded-3xl shadow-lg scale-90"
             />
 
             <h2 className="text-3xl text-center text-pink-500 mb-8">
@@ -15,20 +15,20 @@ function Home() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-12">
                 <div className="bg-pink-100 p-6 rounded-2xl shadow-md text-center hover:scale-105 transition">
-                    <h3 className="text-lg text-pink-600 mb-2">Play-Based Learning</h3>
-                    <p className="text-sm text-gray-700">Ages 2–6, creative curriculum designed for fun and growth.</p>
+                    <h3 className="text-lg text-pink-600 mb-2">Preschool - ages 6 months to 5 years</h3>
+                    {/* <p className="text-sm text-gray-700"></p> */}
                 </div>
                 <div className="bg-blue-100 p-6 rounded-2xl shadow-md text-center hover:scale-105 transition">
-                    <h3 className="text-lg text-blue-600 mb-2">Safe Campus</h3>
-                    <p className="text-sm text-gray-700">Secure environment with engaging outdoor spaces.</p>
+                    <h3 className="text-lg text-blue-600 mb-2">Daycare and Homework Classes</h3>
+                    {/* <p className="text-sm text-gray-700">Secure environment with engaging outdoor spaces.</p> */}
                 </div>
                 <div className="bg-green-100 p-6 rounded-2xl shadow-md text-center hover:scale-105 transition">
-                    <h3 className="text-lg text-green-600 mb-2">Aftercare</h3>
-                    <p className="text-sm text-gray-700">Flexible hours to support working parents.</p>
+                    <h3 className="text-lg text-green-600 mb-2">Grade R</h3>
+                    {/* <p className="text-sm text-gray-700">Flexible hours to support working parents.</p> */}
                 </div>
                 <div className="bg-yellow-200 p-6 rounded-2xl shadow-md text-center hover:scale-105 transition">
-                    <h3 className="text-lg text-yellow-700 mb-2">Holiday Programs</h3>
-                    <p className="text-sm text-gray-700">Fun and educational year-round activities.</p>
+                    <h3 className="text-lg text-yellow-700 mb-2">Grade 1-3</h3>
+                    {/* <p className="text-sm text-gray-700">Fun and educational year-round activities.</p> */}
                 </div>
             </div>
 
