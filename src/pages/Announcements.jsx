@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { fetchAnnouncements } from '../services/airtable';
 import Newsletter from './Newsletter';
+import StarDecoration from '../components/StarDecoration';
 
 function Announcements() {
     const [announcements, setAnnouncements] = useState([]);
@@ -35,22 +36,31 @@ function Announcements() {
 
     if (loading) {
         return (
-            <div className="flex justify-center items-center min-h-64 text-xl text-teal-500 font-[Patrick_Hand]">
-                Loading announcements...
-            </div>
+            <>
+                <StarDecoration />
+                <div className="flex justify-center items-center min-h-64 text-xl text-teal-500 font-[Patrick_Hand]">
+                    Loading announcements...
+                </div>
+            </>
+
         );
     }
 
     if (error) {
         return (
-            <div className="bg-red-100 border border-red-300 rounded-lg p-6 max-w-xl mx-auto text-center shadow-md font-[Patrick_Hand]">
-                <p className="text-red-700 text-lg">❌ {error}</p>
-            </div>
+            <>
+                <StarDecoration />
+                <div className="bg-red-100 border border-red-300 rounded-lg p-6 max-w-xl mx-auto text-center shadow-md font-[Patrick_Hand]">
+                    <p className="text-red-700 text-lg">❌ {error}</p>
+                </div>
+            </>
+
         );
     }
 
     return (
         <Fragment>
+            <StarDecoration />
             <div className="container mx-auto px-4 py-8 font-[Patrick_Hand]">
                 <h2 className="text-3xl text-center text-pink-500 mb-6">School Announcements</h2>
 
