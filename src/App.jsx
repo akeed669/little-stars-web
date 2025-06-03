@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import CookieConsent from 'react-cookie-consent';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Layout from './components/Layout';
 import Home from './pages/Home';
 import Announcements from './pages/Announcements';
 import About from './pages/About';
@@ -77,9 +76,7 @@ function AppContent() {
 function App() {
   return (
     <HashRouter>
-      <Layout>
-        <AppContent />
-      </Layout>
+      <AppContent />
     </HashRouter>
   );
 }
