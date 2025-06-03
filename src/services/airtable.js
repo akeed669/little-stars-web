@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const BASE_ID = 'appvjid8h3mhngkaw'
-const API_KEY = 'patbqAp1PPwa1RxMK.3cb307e251a83aea32d3db6bbe88495f37052194515ad3cc2bb8c060e52e706c'
+const BASE_ID = 'appvjid8h3mhngkaw';
+const API_KEY = 'patbqAp1PPwa1RxMK.3cb307e251a83aea32d3db6bbe88495f37052194515ad3cc2bb8c060e52e706c';
 const BASE_URL = `https://api.airtable.com/v0/${BASE_ID}`;
 
 const airtableClient = axios.create({
@@ -16,42 +16,61 @@ export async function fetchAnnouncements() {
     try {
         const response = await airtableClient.get('/Announcements', {
             params: {
-                sort: [{ field: 'Name', direction: 'asc' }]
+                filterByFormula: '{Active} = TRUE()',
+                sort: [{ field: 'Title', direction: 'asc' }]
             }
         });
 
-        let pdf = '';
-        const text = [];
+        const text = response.data.records?.map(record => ({
+            title: record.fields.Title?.trim() || '',
+            date: record.fields.Date || '',
+            description: record.fields.Description || ''
+        })) || [];
+
+        return text;
+    } catch (error) {
+        console.error('Error fetching announcements:', error);
+        return [];
+    }
+}
+
+export async function fetchNewsletter() {
+    try {
+        const response = await airtableClient.get('/Newsletter', {
+            params: {
+                sort: [{ field: 'Name', direction: 'desc' }] // most recent first
+            }
+        });
+
+        let current = null;
+        const past = [];
 
         for (const record of response.data.records) {
-            const fields = record.fields;
+            const { Name, Attachments, Valid, Current } = record.fields;
+            const pdfUrl = Attachments?.[0]?.url || '';
 
-            // If this is the Newsletter and it's valid, extract the attachment
-            if (fields.Name === 'Newsletter' && fields.Valid) {
-                pdf = fields.Attachments?.[0]?.url || '';
-            }
-            // Otherwise, treat it as a regular announcement
-            else {
-                if (fields.Name?.trim()) {
-                    text.push({ item: fields.Name.trim() });
+            if (Valid && pdfUrl) {
+                if (Current) {
+                    current = { name: Name, pdf: pdfUrl };
+                } else {
+                    past.push({ name: Name, pdf: pdfUrl });
                 }
             }
         }
 
-        return { pdf, text };
+        return { current, past };
     } catch (error) {
-        console.error('Error fetching announcements:', error);
-        return { pdf: '', text: [] };
+        console.error('Error fetching newsletters:', error);
+        return { current: null, past: [] };
     }
 }
-
 
 
 export async function fetchEvents() {
     try {
         const response = await airtableClient.get('/Events', {
             params: {
-                // filterByFormula: '{Active} = TRUE()',
+                filterByFormula: '{Active} = TRUE()',
                 sort: [{ field: 'Date', direction: 'asc' }]
             }
         });
@@ -64,5 +83,44 @@ export async function fetchEvents() {
     } catch (error) {
         console.error('Error fetching events:', error);
         return [];
+    }
+}
+
+export async function fetchGallery() {
+    try {
+        const response = await airtableClient.get('/Gallery', {
+            params: {
+                filterByFormula: '{Active} = TRUE()',
+                sort: [{ field: 'Caption', direction: 'asc' }]
+            }
+        });
+
+        return response.data.records?.map(record => ({
+            imageUrl: record.fields.Image?.[0]?.url || '',
+            caption: record.fields.Caption || ''
+        })) || [];
+    } catch (error) {
+        console.error('Error fetching gallery:', error);
+        return [];
+    }
+}
+
+export async function fetchArticle() {
+    try {
+        const response = await airtableClient.get('/Article', {
+            params: {
+                filterByFormula: '{Active} = TRUE()',
+                maxRecords: 1
+            }
+        });
+
+        const record = response.data.records?.[0]?.fields || {};
+        return {
+            title: record.Title || '',
+            content: record.Content || ''
+        };
+    } catch (error) {
+        console.error('Error fetching article:', error);
+        return { title: '', content: '' };
     }
 }
