@@ -1,4 +1,4 @@
-import playing from '../../assets/littlestars.jpeg';
+import playing from '../../assets/kiddies.jpg';
 
 export function Hero() {
     return (
@@ -6,7 +6,7 @@ export function Hero() {
             <img
                 src={playing}
                 alt="Kids Playing"
-                className="w-full h-full object-contain object-center"
+                className="w-full h-full object-cover object-center" // Changed from object-contain
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
             <div className="absolute inset-0 flex items-center justify-center">
