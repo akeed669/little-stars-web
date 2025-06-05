@@ -2,7 +2,7 @@ import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import CookieConsent from 'react-cookie-consent';
 import Header from './components/general/Header';
-import Footer from './components/general/Footer';
+import Footer from './components/footer/Footer';
 import Home from './pages/Home';
 import Announcements from './pages/Announcements';
 import About from './pages/About';
