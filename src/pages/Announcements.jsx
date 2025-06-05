@@ -1,6 +1,10 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import { fetchAnnouncements } from '../services/airtable';
-import Newsletter from './Newsletter';
+import { LoadingState } from '../components/general/LoadingState';
+import { ErrorState } from '../components/general/ErrorState';
+import { AnnouncementCard } from '../components/announcements/AnnouncementCard';
+import { EmptyState } from '../components/announcements/EmptyState';
+import { NewsletterSection } from '../components/announcements/NewsletterSection';
 
 function Announcements() {
     const [announcements, setAnnouncements] = useState([]);
@@ -33,61 +37,50 @@ function Announcements() {
         });
     };
 
-    if (loading) {
-        return (
-            <div className="flex justify-center items-center min-h-64 text-xl text-teal-500 font-[Patrick_Hand]">
-                Loading announcements...
-            </div>
-        );
-    }
-
-    if (error) {
-        return (
-            <div className="bg-red-100 border border-red-300 rounded-lg p-6 max-w-xl mx-auto text-center shadow-md font-[Patrick_Hand]">
-                <p className="text-red-700 text-lg">❌ {error}</p>
-            </div>
-        );
-    }
+    if (loading) return <LoadingState message="Loading our stories..." />;
+    if (error) return <ErrorState message={error} />;
 
     return (
-        <Fragment>
-            <div className="container mx-auto px-4 py-8 font-[Patrick_Hand]">
-                <h2 className="text-3xl text-center text-pink-500 mb-6">School Announcements</h2>
+        <div className="min-h-screen bg-gradient-to-br from-white via-yellow-50 to-pink-50 py-12">
+            {/* Playful Top Border */}
+            <div className="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 rounded-b-lg"></div>
 
-                {announcements.length > 0 ? (
-                    <div className="bg-white rounded-3xl shadow-lg overflow-hidden ring-1 ring-teal-100">
-                        <div className="overflow-x-auto">
-                            <table className="w-full text-left table-fixed">
-                                <thead className="bg-teal-400 text-white text-lg">
-                                    <tr>
-                                        <th className="px-6 py-4">Title</th>
-                                        <th className="px-6 py-4">Date</th>
-                                        <th className="px-6 py-4">Details</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-teal-100 bg-yellow-50">
-                                    {announcements.map((announcement, index) => (
-                                        <tr key={index} className="hover:bg-yellow-100 transition">
-                                            <td className="px-6 py-4 font-medium text-gray-900">{announcement.title}</td>
-                                            <td className="px-6 py-4 text-gray-700">{formatDate(announcement.date)}</td>
-                                            <td className="px-6 py-4 text-gray-700">{announcement.description}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+            <div className="container mx-auto px-4 max-w-5xl">
+                {/* Header Section */}
+                <div className="text-center mb-12">
+                    <div className="inline-block relative">
+                        <h1 className="text-4xl font-[Patrick_Hand] text-gray-800 mb-2 relative">
+                            School Announcements
+                        </h1>
+                        <div className="absolute -bottom-2 left-0 right-0 h-2 bg-yellow-200 opacity-50 rounded-full"></div>
+                    </div>
+                    <p className="text-gray-600 mt-6 font-[Patrick_Hand] text-lg">
+                        Stay updated with our latest news and events!
+                    </p>
+                </div>
+
+                {/* Content Section */}
+                <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-b from-yellow-100/20 to-pink-100/20 rounded-3xl -m-6"></div>
+                    {announcements.length > 0 ? (
+                        <div className="space-y-6 relative">
+                            {announcements.map((announcement, index) => (
+                                <AnnouncementCard
+                                    key={index}
+                                    {...announcement}
+                                    formatDate={formatDate}
+                                />
+                            ))}
                         </div>
-                    </div>
-                ) : (
-                    <div className="bg-white rounded-xl shadow-md p-8 text-center text-gray-500 italic">
-                        😴 No announcements right now. Check back soon!
-                    </div>
-                )}
-            </div>
+                    ) : (
+                        <EmptyState />
+                    )}
+                </div>
 
-            <div className="mt-8">
-                <Newsletter className="bg-white rounded-xl shadow-md p-6 font-[Patrick_Hand]" />
+                {/* Newsletter Section */}
+                <NewsletterSection />
             </div>
-        </Fragment>
+        </div>
     );
 }
 
